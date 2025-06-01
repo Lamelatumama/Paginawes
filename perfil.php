@@ -14,33 +14,51 @@ $fecha_registro = get_current_fecha_registro();
 
 
 $compras = [];
+$reservas = [];
 
 if ($conexion instanceof mysqli && !$conexion->connect_error) {
-    // Asegúrate de que la columna 'id' también se selecciona si la usas en algún lugar (aunque no se usa directamente en este snippet)
-    $stmt = $conexion->prepare("SELECT id, fecha_compra, detalles_productos, total_compra FROM compras WHERE usuario_id = ? ORDER BY fecha_compra DESC");
-
-    if ($stmt) {
-        $stmt->bind_param("i", $usuario_id);
-        
-        if ($stmt->execute()) {
-            $resultado = $stmt->get_result();
-            
-            if ($resultado instanceof mysqli_result) {
-                if ($resultado->num_rows > 0) {
-                    while ($fila = $resultado->fetch_assoc()) {
-                        $compras[] = $fila;
-                    }
+    // Consulta para obtener las compras del usuario
+    $stmt_compras = $conexion->prepare("SELECT id, fecha_compra, detalles_productos, total_compra FROM compras WHERE usuario_id = ? ORDER BY fecha_compra DESC");
+    if ($stmt_compras) {
+        $stmt_compras->bind_param("i", $usuario_id);
+        if ($stmt_compras->execute()) {
+            $resultado_compras = $stmt_compras->get_result();
+            if ($resultado_compras instanceof mysqli_result) {
+                while ($fila = $resultado_compras->fetch_assoc()) {
+                    $compras[] = $fila;
                 }
-                $resultado->free();
+                $resultado_compras->free();
             } else {
-                error_log("Error: get_result() no devolvió un objeto mysqli_result en perfil.php. Posiblemente un error de ejecución.");
+                error_log("Error: get_result() no devolvió un objeto mysqli_result para compras en perfil.php.");
             }
         } else {
-            error_log("Error al ejecutar la consulta en perfil.php: " . $stmt->error);
+            error_log("Error al ejecutar la consulta de compras en perfil.php: " . $stmt_compras->error);
         }
-        $stmt->close();
+        $stmt_compras->close();
     } else {
-        error_log("Error al preparar la consulta en perfil.php: " . $conexion->error);
+        error_log("Error al preparar la consulta de compras en perfil.php: " . $conexion->error);
+    }
+
+    // Consulta para obtener las reservas del usuario
+    $stmt_reservas = $conexion->prepare("SELECT id, fecha_evento, hora_evento, numero_adultos, numero_ninos, detalles_reserva FROM reservas WHERE usuario_id = ? ORDER BY fecha_evento DESC");
+    if ($stmt_reservas) {
+        $stmt_reservas->bind_param("i", $usuario_id);
+        if ($stmt_reservas->execute()) {
+            $resultado_reservas = $stmt_reservas->get_result();
+            if ($resultado_reservas instanceof mysqli_result) {
+                while ($fila = $resultado_reservas->fetch_assoc()) {
+                    $reservas[] = $fila;
+                }
+                $resultado_reservas->free();
+            } else {
+                error_log("Error: get_result() no devolvió un objeto mysqli_result para reservas en perfil.php.");
+            }
+        } else {
+            error_log("Error al ejecutar la consulta de reservas en perfil.php: " . $stmt_reservas->error);
+        }
+        $stmt_reservas->close();
+    } else {
+        error_log("Error al preparar la consulta de reservas en perfil.php: " . $conexion->error);
     }
 } else {
     error_log("Error: La conexión a la base de datos no es válida en perfil.php o falló la conexión.");
@@ -140,6 +158,22 @@ if ($conexion instanceof mysqli && !$conexion->connect_error) {
                 <?php endforeach; ?>
             <?php else: ?>
                 <p class="no-purchases">Aún no has realizado ninguna compra.</p>
+            <?php endif; ?>
+        </div>
+		<div class="reservation-history">
+            <h2>Historial de Reservas</h2>
+            <?php if (!empty($reservas)): ?>
+                <?php foreach ($reservas as $reserva): ?>
+                    <div class="reservation-item">
+                        <p class="date">Fecha: <?php echo date("d/m/Y", strtotime($reserva['fecha_evento'])); ?></p>
+                        <p>Hora: <?php echo htmlspecialchars($reserva['hora_evento']); ?></p>
+                        <p>Adultos: <?php echo htmlspecialchars($reserva['numero_adultos']); ?></p>
+                        <p>Niños: <?php echo htmlspecialchars($reserva['numero_ninos']); ?></p>
+                        <p>Detalles: <?php echo htmlspecialchars($reserva['detalles_reserva']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="no-reservations">Aún no has realizado ninguna reserva.</p>
             <?php endif; ?>
         </div>
     </div>

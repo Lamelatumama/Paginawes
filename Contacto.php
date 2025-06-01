@@ -35,7 +35,7 @@ require_once 'sesion.php';
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                 <tr>
                     <td style="vertical-align: middle; text-align: center;">
-                        <button class="reserve-button">Reserva ya</button>
+                        <button class="reserve-button" onclick="window.location.href='reserva.php'">Reserva ya</button>
                     </td>
                     <td style="vertical-align: middle; padding-left: 20px; border-left: 1px solid #ddd;">
                         <div class="contact-info">
