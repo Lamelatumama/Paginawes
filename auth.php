@@ -68,7 +68,7 @@ if (isset($_POST['accion']) && $_POST['accion'] == 'registro') {
         exit();
     }
 
-    $stmt = $conexion->prepare("SELECT id, nombre_usuario, contrasena FROM usuarios WHERE correo_electronico = ? OR nombre_usuario = ?");
+    $stmt = $conexion->prepare("SELECT id, nombre_usuario, contrasena, correo_electronico, fecha_registro FROM usuarios WHERE correo_electronico = ? OR nombre_usuario = ?");
     if ($stmt) {
         $stmt->bind_param("ss", $correo_o_usuario, $correo_o_usuario);
         $stmt->execute();
@@ -79,6 +79,12 @@ if (isset($_POST['accion']) && $_POST['accion'] == 'registro') {
             if (password_verify($contrasena, $usuario['contrasena'])) {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
+				/*
+				estaba probando para meter lo del email y la fecha de registro
+				*/
+				$_SESSION['correo_electronico'] = $usuario['correo_electronico'];
+				$_SESSION['fecha_registro'] = $usuario['fecha_registro'];
+				
                 echo json_encode(['success' => true, 'message' => 'Inicio de sesión exitoso.']);
                 exit();
             } else {
