@@ -39,10 +39,10 @@ require_once 'sesion.php';
                 </div>
             </div>
             <div class="about-item">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_AQUI" frameborder="0" allowfullscreen></iframe>
+                <img src="img/Nosotros/maxresdefault.jpg" alt="Imagen del equipo 3">
                 <div class="text-content">
                     <h3>Conoce a Nuestro Equipo</h3>
-                    <p>Nuestro equipo está dedicado a brindar un servicio excepcional y crear un ambiente acogedor para todos nuestros clientes.</p>
+                    <p>Nuestro equipo está dedicado a brindar un servicio excepcional y crear un ambiente acogedor para todos nuestros clientes, estamos comprometidos con la excelencia culinaria, donde cada detalle cuenta. Combinamos técnica, pasión y experiencia para ofrecerte platos de la más alta calidad, preparados con precisión y dedicación en cada paso del proceso."</p>
                 </div>
             </div>
             <div class="about-item">
