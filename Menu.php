@@ -216,28 +216,28 @@ require_once 'sesion.php';
             <h2>Ensaladas</h2>
             <div class="menu-items">
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada César">
+                    <img src="img/Menu/Ensaladas/EnsaladaCesar.avif" alt="Ensalada César">
                     <h3>Ensalada César</h3>
                     <div class="price">€16.99</div>
                     <p>Lechuga, pollo a la plancha, queso parmesano y croutons.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Griega">
+                    <img src="img/Menu/Ensaladas/EnsaladaGriega.jpg" alt="Ensalada Griega">
                     <h3>Ensalada Griega</h3>
                     <div class="price">€16.49</div>
                     <p>Tomate, pepino, cebolla roja, aceitunas y queso feta.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Mixta">
+                    <img src="img/Menu/Ensaladas/EnsaladaMixta.jpg" alt="Ensalada Mixta">
                     <h3>Ensalada Mixta</h3>
                     <div class="price">€15.99</div>
                     <p>Lechuga, tomate, zanahoria, maíz y huevo duro.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Vegana">
+                    <img src="img/Menu/Ensaladas/EnsaladaVegana.jpg" alt="Ensalada Vegana">
                     <h3>Ensalada Vegana</h3>
                     <div class="price">€16.49</div>
                     <p>Mezcla de verdes, garbanzos, aguacate y vinagreta balsámica.</p>

@@ -31,44 +31,85 @@
                 <h2>Registrarse</h2>
                 <form id="registro-form">
                     <input type="hidden" name="accion" value="registro">
-                    <input type="text" name="nombre_usuario" placeholder="Nombre de Usuario" required>
-                    <input type="email" name="correo_electronico" placeholder="Correo electrónico" required>
-                    <input type="password" name="contrasena" placeholder="Contraseña" required>
+                    <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Nombre de Usuario">
+                    <input type="text" name="correo_electronico" id="correo_electronico" placeholder="Correo electrónico">
+                    <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña">
                     <button type="submit">Registrarse</button>
                 </form>
                 <p class="toggle-form-link">¿Ya tienes cuenta? <a href="login.html">Inicia Sesión aquí</a></p>
-                <div id="message-area" class="message" style="display: none;"></div>
             </div>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-custom-button">&times;</span>
+            <h2 id="custom-modal-title"></h2>
+            <p id="custom-modal-message"></p>
+            <button class="ok-button">OK</button>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const registroForm = document.getElementById('registro-form');
-            const messageArea = document.getElementById('message-area');
+            const nombreUsuarioInput = document.getElementById('nombre_usuario');
+            const correoElectronicoInput = document.getElementById('correo_electronico');
+            const contrasenaInput = document.getElementById('contrasena');
 
-            function showMessage(text, type) {
-                messageArea.textContent = text;
-                messageArea.className = 'message ' + type;
-                messageArea.style.display = 'block';
-                setTimeout(() => {
-                    messageArea.style.display = 'none';
-                }, 5000);
+            const customModal = document.getElementById('custom-modal');
+            const customModalTitle = document.getElementById('custom-modal-title');
+            const customModalMessage = document.getElementById('custom-modal-message');
+            const closeCustomButton = document.querySelector('.close-custom-button');
+            const okButton = document.querySelector('.ok-button');
+
+            function showCustomModal(title, message) {
+                customModalTitle.textContent = title;
+                customModalMessage.textContent = message;
+                customModal.style.display = 'flex';
             }
+
+            function hideCustomModal() {
+                customModal.style.display = 'none';
+            }
+
+            closeCustomButton.addEventListener('click', hideCustomModal);
+            okButton.addEventListener('click', hideCustomModal);
+            customModal.addEventListener('click', function(event) {
+                if (event.target === customModal) {
+                    hideCustomModal();
+                }
+            });
 
             registroForm.addEventListener('submit', async function (event) {
                 event.preventDefault();
 
-                const nombreUsuarioInput = registroForm.querySelector('input[name="nombre_usuario"]');
-                const contrasenaInput = registroForm.querySelector('input[name="contrasena"]');
+                if (nombreUsuarioInput.value.trim() === '') {
+                    showCustomModal('Error de Registro', 'Por favor, introduce un nombre de usuario.');
+                    return;
+                }
+                if (correoElectronicoInput.value.trim() === '') {
+                    showCustomModal('Error de Registro', 'Por favor, introduce un correo electrónico.');
+                    return;
+                }
+                if (contrasenaInput.value.trim() === '') {
+                    showCustomModal('Error de Registro', 'Por favor, introduce una contraseña.');
+                    return;
+                }
 
                 if (nombreUsuarioInput.value.length < 3) {
-                    showMessage('El nombre de usuario debe tener al menos 3 caracteres.', 'error');
+                    showCustomModal('Error de Registro', 'El nombre de usuario debe tener al menos 3 caracteres.');
                     return;
                 }
 
                 if (contrasenaInput.value.length < 8) {
-                    showMessage('La contraseña debe tener al menos 8 caracteres.', 'error');
+                    showCustomModal('Error de Registro', 'La contraseña debe tener al menos 8 caracteres.');
+                    return;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(correoElectronicoInput.value.trim())) {
+                    showCustomModal('Error de Registro', 'Por favor, introduce un formato de correo electrónico válido.');
                     return;
                 }
 
@@ -87,17 +128,17 @@
                     const result = await response.json();
 
                     if (result.success) {
-                        showMessage(result.message, 'success');
+                        showCustomModal('¡Registro exitoso!', result.message);
                         registroForm.reset();
                         setTimeout(() => {
-                            window.location.href = 'login.html';
+                            window.location.href = 'login.html?registro=success';
                         }, 2000);
                     } else {
-                        showMessage(result.message, 'error');
+                        showCustomModal('Error de Registro', result.message);
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    showMessage('Ocurrió un error de conexión. Inténtalo de nuevo.', 'error');
+                    showCustomModal('Error de Conexión', 'Ocurrió un error de conexión. Inténtalo de nuevo.');
                 }
             });
         });
