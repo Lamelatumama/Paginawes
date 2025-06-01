@@ -9,9 +9,6 @@ if (!is_logged_in()) {
 
 $usuario_id = get_current_user_id();
 $nombre_usuario = get_current_username();
-$correo_electronico = get_current_correo_electronico();
-$fecha_registro = get_current_fecha_registro();
-
 
 $compras = [];
 
@@ -81,8 +78,6 @@ if ($conexion instanceof mysqli && !$conexion->connect_error) {
         <div class="profile-info">
             <p>Nombre de Usuario: <strong><?php echo htmlspecialchars($nombre_usuario); ?></strong></p>
             <p>ID de Usuario: <strong><?php echo htmlspecialchars($usuario_id); ?></strong></p>
-			<p>Email de Usuario: <strong><?php echo htmlspecialchars($correo_electronico); ?></strong></p>
-			<p>Fecha de Registro de Usuario: <strong><?php echo htmlspecialchars($fecha_registro); ?></strong></p>
         </div>
 
         <div class="purchase-history">
@@ -102,7 +97,6 @@ if ($conexion instanceof mysqli && !$conexion->connect_error) {
                                     $precio_producto = htmlspecialchars($producto['price'] ?? 0);
                                     // Muestra la cantidad, el nombre del producto y el precio unitario
                                     echo "<li>{$cantidad_producto} x {$nombre_producto} - €" . number_format($precio_producto, 2) . " c/u</li>";
-									
                                 }
                             } else {
                                 echo "<li>Error al cargar los detalles del producto.</li>";
@@ -111,31 +105,7 @@ if ($conexion instanceof mysqli && !$conexion->connect_error) {
                             }
                             ?>
                         </ul>
-						<!--Total de compra la compra><-->
                         <p class="total">Total: €<?php echo number_format($compra['total_compra'], 2); ?></p>
-						<!--Eliminar compra, tuve que poner el estilo ahí porque no me lo cargaba el css, debe ser que está muy petao y no carga una mierda><-->
-						<form method="POST" action="eliminar_compra.php" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta compra? No hay reembolsos disponibles');">
-							<input type="hidden" name="compra_id" value="<?php echo htmlspecialchars($compra['id']); ?>">
-							<button 
-								type="submit"
-								style="
-									background-color: #d32f2f;
-									color: #fff;
-									border: none;
-									padding: 8px 16px;
-									border-radius: 8px;
-									font-size: 14px;
-									cursor: pointer;
-									font-weight: bold;
-									box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-									transition: background-color 0.3s ease, transform 0.2s ease;
-								"
-								onmouseover="this.style.backgroundColor='#ff5252'; this.style.transform='scale(1.03)'"
-								onmouseout="this.style.backgroundColor='#d32f2f'; this.style.transform='scale(1)'"
-							>
-								Eliminar
-							</button>
-						</form>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -148,12 +118,12 @@ if ($conexion instanceof mysqli && !$conexion->connect_error) {
         <nav>
             <ul>
                 <li><a href="Home.php">Home</a></li>
-                <li><a href="Nosotros.php">Nosotros</a></li>
+                <li><a href="Nosotros.php">About</a></li>
                 <li><a href="Menu.php">Menú</a></li>
-                <li><a href="Contacto.php">Contacto</a></li>
+                <li><a href="Contacto.php">Contact</a></li>
             </ul>
         </nav>
-        <p>© 2025 Todos los derechos reservados - Burger Place</p>
+        <p>© 2023 All rights reserved - PastaBurger House</p>
     </footer>
 </body>
 </html>

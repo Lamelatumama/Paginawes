@@ -27,7 +27,6 @@ require_once 'sesion.php';
             </ul>
         </nav>
     </div>
-	<!--Botones para ir a cada zona del menú><-->
     <header class="header">
         <h1>Menú</h1>
         <div class="nav-buttons">
@@ -41,12 +40,11 @@ require_once 'sesion.php';
             <button class="nav-button" onclick="scrollToSection('bebidas')">Bebidas</button>
             <button class="nav-button" onclick="scrollToSection('postres')">Postres</button>
         </div>
-		<!--Botón del carrito que activa el carro><-->
         <button id="view-cart-button" class="cart-button-image">
             <img src="img/Carrito/Carrito.png" alt="Carrito de Compras"> <span id="cart-count" class="cart-count">0</span>
         </button>
     </header>
-	<!--Básicamente el menú dónde se pone todo, divido por secciones, se pueden meter imágenes, título, descripción y precio><-->
+
     <div class="main-content" style="padding-top: 80px;">
         <div class="category" id="entrantes">
             <h2>Entrantes y Acompañamientos</h2>
@@ -216,28 +214,28 @@ require_once 'sesion.php';
             <h2>Ensaladas</h2>
             <div class="menu-items">
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/EnsaladaCesar.avif" alt="Ensalada César">
+                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada César">
                     <h3>Ensalada César</h3>
                     <div class="price">€16.99</div>
                     <p>Lechuga, pollo a la plancha, queso parmesano y croutons.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/EnsaladaGriega.jpg" alt="Ensalada Griega">
+                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Griega">
                     <h3>Ensalada Griega</h3>
                     <div class="price">€16.49</div>
                     <p>Tomate, pepino, cebolla roja, aceitunas y queso feta.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/EnsaladaMixta.jpg" alt="Ensalada Mixta">
+                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Mixta">
                     <h3>Ensalada Mixta</h3>
                     <div class="price">€15.99</div>
                     <p>Lechuga, tomate, zanahoria, maíz y huevo duro.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Ensaladas/EnsaladaVegana.jpg" alt="Ensalada Vegana">
+                    <img src="img/Menu/Ensaladas/ensalada.avif" alt="Ensalada Vegana">
                     <h3>Ensalada Vegana</h3>
                     <div class="price">€16.49</div>
                     <p>Mezcla de verdes, garbanzos, aguacate y vinagreta balsámica.</p>
@@ -305,8 +303,8 @@ require_once 'sesion.php';
                     <button class="add-to-cart">Añadir al carrito</button>
                 </div>
                 <div class="menu-item">
-                    <img src="img/Menu/Alitas y Tiras de Pollo/Alitas_strips.jfif" alt="Mix Wings and Strips">
-                    <h3>Mix Wings and Strips</h3>
+                    <img src="img/Menu/Alitas y Tiras de Pollo/Alitas_strips.jfif" alt="Mix Wings & Strips">
+                    <h3>Mix Wings & Strips</h3>
                     <div class="price">€2.99</div>
                     <p>Combinado de alitas y tiras con papas y salsa.</p>
                     <button class="add-to-cart">Añadir al carrito</button>
@@ -395,7 +393,7 @@ require_once 'sesion.php';
             <span class="close-button">&times;</span>
             <h2>Tu Carrito</h2>
             <div id="cart-items">
-            </div>
+                </div>
             <div class="cart-summary">
                 <p>Total: <span id="cart-total">€0.00</span></p>
                 <p id="discount-message" style="color: green; font-weight: bold; display: none;">¡Tienes un 10% de descuento!</p>
@@ -420,16 +418,15 @@ require_once 'sesion.php';
         <nav>
             <ul>
                 <li><a href="Home.php">Home</a></li>
-                <li><a href="Nosotros.php">Nosotros</a></li>
+                <li><a href="Nosotros.php">About</a></li>
                 <li><a href="Menu.php">Menú</a></li>
-                <li><a href="Contacto.php">Contacto</a></li>
+                <li><a href="Contacto.php">Contact</a></li>
             </ul>
         </nav>
-        <p>© 2025 Todos los derechos reservados - Burger Place</p>
+        <p>© 2023 All rights reserved - PastaBurger House</p>
     </footer>
 
     <script>
-	//rellenar comentario más tarde
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.nav-button').forEach(button => {
                 button.addEventListener('click', function() {
@@ -440,7 +437,7 @@ require_once 'sesion.php';
                     }
                 });
             });
-			//constantes de botones para activar cosas
+
             const cartModal = document.getElementById('cart-modal');
             const closeButton = document.querySelector('.close-button');
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
@@ -456,10 +453,8 @@ require_once 'sesion.php';
             const customModalMessage = document.getElementById('custom-modal-message');
             const closeCustomButton = document.querySelector('.close-custom-button');
             const okButton = document.querySelector('.ok-button');
-			
-			//array del carrito
+
             let cart = [];
-			//constante para ver si está relleno el carro
             const isLoggedIn = <?php echo json_encode(is_logged_in()); ?>;
 
             function showCustomModal(title, message) {
@@ -481,7 +476,7 @@ require_once 'sesion.php';
                     customModal.style.display = 'none';
                 }
             });
-			//carrito para ver las cosas que tienes para comprar
+
             function updateCartDisplay() {
                 cartItemsContainer.innerHTML = '';
                 let total = 0;
@@ -497,12 +492,13 @@ require_once 'sesion.php';
                             <button class="quantity-btn" data-index="${index}" data-action="decrease">-</button>
                             <button class="quantity-btn" data-index="${index}" data-action="increase">+</button>
                             <button class="remove-from-cart-btn" data-index="${index}">Eliminar</button>
-                        </div>`;
+                        </div>
+                    `;
                     cartItemsContainer.appendChild(itemDiv);
                     total += item.price * item.quantity;
                     itemCount += item.quantity;
                 });
-				//te da un 10% de descuento si estás registrado (un poco raro si para poder comprar necesitas estar registrado sí o sí)
+
                 if (isLoggedIn) {
                     total *= 0.90;
                     discountMessage.style.display = 'block';
@@ -513,13 +509,13 @@ require_once 'sesion.php';
 
                 cartTotalSpan.textContent = `€${total.toFixed(2)}`;
                 cartCountSpan.textContent = itemCount;
-				//comprueba si tienes items en el carrito
+
                 if (itemCount > 0) {
                     viewCartButton.classList.add('has-items');
                 } else {
                     viewCartButton.classList.remove('has-items');
                 }
-				//botón sumar cosas al carrito
+
                 document.querySelectorAll('.quantity-btn').forEach(button => {
                     button.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
@@ -536,7 +532,7 @@ require_once 'sesion.php';
                         updateCartDisplay();
                     });
                 });
-				//botón para quitar cosas al carrito
+
                 document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
                     button.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
@@ -545,7 +541,7 @@ require_once 'sesion.php';
                     });
                 });
             }
-			//otro botón
+
             addToCartButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const item = this.closest('.menu-item');
@@ -575,7 +571,7 @@ require_once 'sesion.php';
                     cartModal.style.display = 'none';
                 }
             });
-			//botón de ejecutar compra de lo que tengas, comprueba si tienes algo, si no no te deja, si no estás iniciado sesión tampoco, si cumples te registra la compra y te lo mete todo a una lista 
+
             checkoutBtn.addEventListener('click', async () => {
                 if (cart.length === 0) {
                     showCustomModal('Carrito Vacío', 'Tu carrito está vacío. Añade algunos productos antes de proceder al pago.');
@@ -587,33 +583,25 @@ require_once 'sesion.php';
                     setTimeout(() => { window.location.href = 'login.html'; }, 3000);
                     return;
                 }
-				//se guardan los valores en las siguientes variables y se ajustan a lo que necesitamos para meterlos en la db
-                //const totalCompra = parseFloat(cartTotalSpan.textContent.replace('€', ''));
-				//cambio de la gestión de total compra, ahora mira por si hay texto raro y lo cambia por si se cambia el texto en el futuro
-				const totalCompra = parseFloat(cartTotalSpan.textContent.replace(/[^\d.,]/g, '').replace(',', '.'));
+
+                const totalCompra = parseFloat(cartTotalSpan.textContent.replace('€', ''));
                 const detallesProductos = JSON.stringify(cart);
-				//desactivamos el botón para que no se envíe 2 veces lo mismo, luego lo habilitamos
-				checkoutBtn.disabled = true;
+
                 try {
                     const response = await fetch('registrar_compra.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         },
-                        //body: `total_compra=${totalCompra}&detalles_productos=${detallesProductos}`
-						//cambiamos el código de arriba por el de abajo para solucionar posibles problemas con otros caracteres:
-						body: `total_compra=${encodeURIComponent(totalCompra)}&detalles_productos=${encodeURIComponent(detallesProductos)}`
+                        body: `total_compra=${totalCompra}&detalles_productos=${detallesProductos}`
                     });
-					//espera la respuesta y te dice si fue exitosa
+
                     const result = await response.text();
-					//añadimos esto para verlo en la consola que nos dice el servidor si necesitamos ver qué ha sucedido con el error
-					console.log('Respuesta del servidor:', result);
                     if (response.ok && result.includes("Compra registrada con éxito")) {
                         showCustomModal('¡Compra Exitosa!', 'Tu compra ha sido registrada con éxito. Puedes verla en tu historial de compras en tu perfil.');
                         cart = [];
                         updateCartDisplay();
                         cartModal.style.display = 'none';
-						
                     } else {
                         showCustomModal('Error al Registrar Compra', 'Ocurrió un error al registrar tu compra: ' + result);
                     }
@@ -621,7 +609,6 @@ require_once 'sesion.php';
                     console.error('Error al enviar la compra:', error);
                     showCustomModal('Error de Conexión', 'Ocurrió un error al procesar tu compra. Inténtalo de nuevo más tarde.');
                 }
-				checkoutBtn.disabled = false;
             });
 
             updateCartDisplay();
