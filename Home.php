@@ -1,4 +1,5 @@
 <?php
+//inicio php
 require_once 'sesion.php';
 
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
@@ -14,6 +15,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!--Menú principal><-->
     <div class="sidebar">
         <img src="img/Logo/HamburguesaLOGO2.png" alt="Logo">
         <nav>
@@ -32,6 +34,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
             </ul>
         </nav>
     </div>
+	<!--Lo del Scroll del incio><-->
     <header class="header">
         <h1>Bienvenidos a Burger Place</h1>
     </header>
@@ -43,7 +46,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                     <div class="promo-overlay">
                         <h2>Prueba nuestras excelentes Hamburguesas</h2>
                         <p>Ingredientes naturales, increíble sabor</p>
-                        <a href="Menu.php">Order Now!</a>
+                        <a href="Menu.php">¡Pedir ahora!</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -51,7 +54,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                     <div class="promo-overlay">
                         <h2>Deliciosas Ensaladas</h2>
                         <p>Ensaladas frescas y saludables para todos los gustos</p>
-                        <a href="Menu.php">Order Now!</a>
+                        <a href="Menu.php">¡Pedir ahora!!</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -59,10 +62,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
                     <div class="promo-overlay">
                         <h2>Pizzas Irresistibles</h2>
                         <p>Pizzas con ingredientes de la mejor calidad</p>
-                        <a href="Menu.php">Order Now!</a>
+                        <a href="Menu.php">¡Pedir ahora!!</a>
                     </div>
                 </div>
             </div>
+			<!--Botones Carrusel><-->
             <div class="carousel-controls">
                 <button class="carousel-control" data-index="0"></button>
                 <button class="carousel-control" data-index="1"></button>
@@ -80,7 +84,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
             <button class="ok-button">OK</button>
         </div>
     </div>
-
+	<footer>
+        <nav>
+            <ul>
+                <li><a href="Home.php">Home</a></li>
+                <li><a href="Nosotros.php">Nosotros</a></li>
+                <li><a href="Menu.php">Menú</a></li>
+                <li><a href="Contacto.php">Contacto</a></li>
+            </ul>
+        </nav>
+        <p>© 2025 Todos los derechos reservados - Burger Place</p>
+    </footer>
+<!--Script Carrusel><-->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const carousel = document.querySelector('.carousel');

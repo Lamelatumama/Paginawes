@@ -1,0 +1,348 @@
+[33mcommit a2918267117eacc54aabbb4a27dee09b58b3edab[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: yo <no@gmail.com>
+Date:   Sat May 31 19:14:40 2025 +0200
+
+    Primer comit
+
+[1mdiff --git a/BD.sql b/BD.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e2a1329[m
+[1m--- /dev/null[m
+[1m+++ b/BD.sql[m
+[36m@@ -0,0 +1,16 @@[m
+[32m+[m[32mCREATE TABLE usuarios ([m
+[32m+[m[32m    id INT AUTO_INCREMENT PRIMARY KEY,[m
+[32m+[m[32m    nombre_usuario VARCHAR(50) NOT NULL UNIQUE,[m
+[32m+[m[32m    correo_electronico VARCHAR(100) NOT NULL UNIQUE,[m
+[32m+[m[32m    contrasena VARCHAR(255) NOT NULL,[m[41m [m
+[32m+[m[32m    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP[m
+[32m+[m[32m);[m
+[32m+[m
+[32m+[m[32mCREATE TABLE compras ([m
+[32m+[m[32m    id INT AUTO_INCREMENT PRIMARY KEY,[m
+[32m+[m[32m    usuario_id INT NOT NULL,[m
+[32m+[m[32m    fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,[m
+[32m+[m[32m    detalles_productos TEXT,[m[41m [m
+[32m+[m[32m    total_compra DECIMAL(10, 2) NOT NULL,[m
+[32m+[m[32m    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE[m
+[32m+[m[32m);[m
+\ No newline at end of file[m
+[1mdiff --git a/Contacto.php b/Contacto.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6f7ab14[m
+[1m--- /dev/null[m
+[1m+++ b/Contacto.php[m
+[36m@@ -0,0 +1,67 @@[m
+[32m+[m[32m<?php[m
+[32m+[m[32mrequire_once 'sesion.php';[m
+[32m+[m[32m?>[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Contacto - Burger Place</title>[m
+[32m+[m[32m    <link rel="stylesheet" href="styles.css">[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="sidebar">[m
+[32m+[m[32m        <img src="img/Logo/HamburguesaLOGO2.png" alt="Logo">[m
+[32m+[m[32m        <nav>[m
+[32m+[m[32m            <ul>[m
+[32m+[m[32m                <li><a href="Home.php">Home</a></li>[m
+[32m+[m[32m                <li><a href="Nosotros.php">Nosotros</a></li>[m
+[32m+[m[32m                <li><a href="Menu.php">Menú</a></li>[m
+[32m+[m[32m                <li><a class="active" href="Contacto.php">Contacto</a></li>[m
+[32m+[m[32m                <?php if (is_logged_in()): ?>[m
+[32m+[m[32m                    <li><a href="perfil.php">Mi Perfil</a></li>[m
+[32m+[m[32m                    <li><a href="logout.php">Cerrar Sesión</a></li>[m
+[32m+[m[32m                <?php else: ?>[m
+[32m+[m[32m                    <li><a href="login.html">Iniciar Sesión</a></li>[m
+[32m+[m[32m                    <li><a href="registro.html">Registrarse</a></li>[m
+[32m+[m[32m                <?php endif; ?>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m        </nav>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <div class="main-content">[m
+[32m+[m[32m        <h1>Contacto</h1>[m
+[32m+[m[32m        <div class="contact-section">[m
+[32m+[m[32m            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">[m
+[32m+[m[32m                <tr>[m
+[32m+[m[32m                    <td style="vertical-align: middle; text-align: center;">[m
+[32m+[m[32m                        <button class="reserve-button">Reserva ya</button>[m
+[32m+[m[32m                    </td>[m
+[32m+[m[32m                    <td style="vertical-align: middle; padding-left: 20px; border-left: 1px solid #ddd;">[m
+[32m+[m[32m                        <div class="contact-info">[m
+[32m+[m[32m                            <p>Aqui está nuestra Información de Contacto</p>[m
+[32m+[m[32m                            <p>Teléfono: +123 456 789</p>[m
+[32m+[m[32m                            <p>Correo electrónico: contacto@burgerplace.com</p>[m
+[32m+[m[32m                            <p>Facebook: @BurgerPlace</p>[m
+[32m+[m[32m                            <p>Instagram: @BurgerPlace</p>[m
+[32m+[m[32m                        </div>[m
+[32m+[m[32m                    </td>[m
+[32m+[m[32m                </tr>[m
+[32m+[m[32m            </table>[m
+[32m+[m[32m        </div>[m[41m                      [m
+[32m+[m[32m        <div class="map-container">[m
+[32m+[m[32m            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.894599175214!2d-6.258457684069771!3d53.34980538798214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48fffb96f87d5a2f%3A0x9e377fe2f8c2f80a!2sEastpoint%20Business%20Park!5e0!3m2!1sen!2sie!4v1698789447225!5m2!1sen!2sie" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <footer>[m
+[32m+[m[32m        <nav>[m
+[32m+[m[32m            <ul>[m
+[32m+[m[32m                <li><a href="Home.php">Home</a></li>[m
+[32m+[m[32m                <li><a href="Nosotros.php">About</a></li>[m
+[32m+[m[32m                <li><a href="Menu.php">Menú</a></li>[m
+[32m+[m[32m                <li><a href="Contacto.php">Contact</a></li>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m        </nav>[m
+[32m+[m[32m        <p>© 2023 All rights reserved - PastaBurger House</p>[m
+[32m+[m[32m    </footer>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+[1mdiff --git a/Home.php b/Home.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7081a30[m
+[1m--- /dev/null[m
+[1m+++ b/Home.php[m
+[36m@@ -0,0 +1,149 @@[m
+[32m+[m[32m<?php[m
+[32m+[m[32mrequire_once 'sesion.php';[m
+[32m+[m
+[32m+[m[32mif (isset($_GET['action']) && $_GET['action'] === 'logout') {[m
+[32m+[m[32m    logout();[m[41m [m
+[32m+[m[32m}[m
+[32m+[m[32m?>[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Home - Burger Place</title>[m
+[32m+[m[32m    <link rel="stylesheet" href="styles.css">[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="sidebar">[m
+[32m+[m[32m        <img src="img/Logo/HamburguesaLOGO2.png" alt="Logo">[m
+[32m+[m[32m        <nav>[m
+[32m+[m[32m            <ul>[m
+[32m+[m[32m                <li><a class="active" href="Home.php">Home</a></li>[m
+[32m+[m[32m                <li><a href="Nosotros.php">Nosotros</a></li>[m
+[32m+[m[32m                <li><a href="Menu.php">Menú</a></li>[m
+[32m+[m[32m                <li><a href="Contacto.php">Contacto</a></li>[m
+[32m+[m[32m                <?php if (is_logged_in()): ?>[m
+[32m+[m[32m                    <li><a href="perfil.php">Mi Perfil</a></li>[m
+[32m+[m[32m                    <li><a href="Home.php?action=logout">Cerrar Sesión</a></li>[m
+[32m+[m[32m                <?php else: ?>[m
+[32m+[m[32m                    <li><a href="login.html">Iniciar Sesión</a></li>[m
+[32m+[m[32m                    <li><a href="registro.html">Registrarse</a></li>[m
+[32m+[m[32m                <?php endif; ?>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m        </nav>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <header class="header">[m
+[32m+[m[32m        <h1>Bienvenidos a Burger Place</h1>[m
+[32m+[m[32m    </header>[m
+[32m+[m[32m    <div class="main-content">[m
+[32m+[m[32m        <div class="carousel">[m
+[32m+[m[32m            <div class="carousel-inner">[m
+[32m+[m[32m                <div class="carousel-item">[m
+[32m+[m[32m                    <img class="img-Fondo img-hamburguesa" src="img/Carrusel/HamburguesaFONDO.jpg" alt="Background 1">[m
+[32m+[m[32m                    <div class="promo-overlay">[m
+[32m+[m[32m                        <h2>Prueba nuestras excelentes Hamburguesas</h2>[m
+[32m+[m[32m                        <p>Ingredientes naturales, increíble sabor</p>[m
+[32m+[m[32m                        <a href="Menu.php">Order Now!</a>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="carousel-item">[m
+[32m+[m[32m                    <img class="img-Fondo img-ensalada" src="img/Carrusel/EnsaladaFONDO.jpg" alt="Background 2">[m
+[32m+[m[32m                    <div class="promo-overlay">[m
+[32m+[m[32m                        <h2>Deliciosas Ensaladas</h2>[m
+[32m+[m[32m                        <p>Ensaladas frescas y saludables para todos los gustos</p>[m
+[32m+[m[32m                        <a href="Menu.php">Order Now!</a>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="carousel-item">[m
+[32m+[m[32m                    <img class="img-Fondo img-pizza" src="img/Carrusel/PizzaFONDO.jpg" alt="Background 3">[m
+[32m+[m[32m                    <div class="promo-overlay">[m
+[32m+[m[32m                        <h2>Pizzas Irresistibles</h2>[m
+[32m+[m[32m                        <p>Pizzas con ingredientes de la mejor calidad</p>[m
+[32m+[m[32m                        <a href="Menu.php">Order Now!</a>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m            <div class="carousel-controls">[m
+[32m+[m[32m                <button class="carousel-control" data-index="0"></button>[m
+[32m+[m[32m                <button class="carousel-control" data-index="1"></button>[m
+[32m+[m[32m                <button class="carousel-control" data-index="2"></button>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        </section>[m
+[32m+[m[32m    </div>[m
+[32m+[m
+[32m+[m[32m    <div id="custom-modal" class="modal">[m
+[32m+[m[32m        <div class="modal-content">[m
+[32m+[m[32m            <span class="close-custom-button">&times;</span>[m
+[32m+[m[32m            <h2 id="custom-modal-title"></h2>[m
+[32m+[m[32m            <p id="custom-modal-message"></p>[m
+[32m+[m[32m            <button class="ok-button">OK</button>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m
+[32m+[m[32m    <script>[m
+[32m+[m[32m        document.addEventListener('DOMContentLoaded', function () {[m
+[32m+[m[32m            const carousel = document.querySelector('.carousel');[m
+[32m+[m[32m            const carouselInner = document.querySelector('.carousel-inner');[m
+[32m+[m[32m            const carouselItems = document.querySelectorAll('.carousel-item');[m
+[32m+[m[32m            const carouselControls = document.querySelectorAll('.carousel-control');[m
+[32m+[m[32m            let currentIndex = 0;[m
+[32m+[m
+[32m+[m[32m            function showItem(index) {[m
+[32m+[m[32m                const itemWidth = carouselItems[0].offsetWidth;[m
+[32m+[m[32m                carouselInner.style.transform = `translateX(-${index * itemWidth}px)`;[m
+[32m+[m[32m                carouselControls.forEach(control => control.classList.remove('active'));[m
+[32m+[m[32m                carouselControls[index].classList.add('active');[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            carouselControls.forEach(control => {[m
+[32m+[m[32m                control.addEventListener('click', function () {[m
+[32m+[m[32m                    const index = parseInt(control.getAttribute('data-index'), 10);[m
+[32m+[m[32m                    currentIndex = index;[m
+[32m+[m[32m                    showItem(currentIndex);[m
+[32m+[m[32m                });[m
+[32m+[m[32m            });[m
+[32m+[m
+[32m+[m[32m            setInterval(() => {[m
+[32m+[m[32m                currentIndex = (currentIndex + 1) % carouselItems.length;[m
+[32m+[m[32m                showItem(currentIndex);[m
+[32m+[m[32m            }, 5000);[m
+[32m+[m
+[32m+[m[32m            showItem(currentIndex);[m
+[32m+[m
+[32m+[m[32m            const customModal = document.getElementById('custom-modal');[m
+[32m+[m[32m            const customModalTitle = document.getElementById('custom-modal-title');[m
+[32m+[m[32m            const customModalMessage = document.getElementById('custom-modal-message');[m
+[32m+[m[32m            const closeCustomButton = document.querySelector('.close-custom-button');[m
+[32m+[m[32m            const okButton = document.querySelector('.ok-button');[m
+[32m+[m
+[32m+[m[32m            function showCustomModal(title, message) {[m
+[32m+[m[32m                customModalTitle.textContent = title;[m
+[32m+[m[32m                customModalMessage.textContent = message;[m
+[32m+[m[32m                customModal.style.display = 'flex';[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            function hideCustomModal() {[m
+[32m+[m[32m                customModal.style.display = 'none';[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            closeCustomButton.addEventListener('click', hideCustomModal);[m
+[32m+[m[32m            okButton.addEventListener('click', hideCustomModal);[m
+[32m+[m
+[32m+[m[32m            customModal.addEventListener('click', function(event) {[m
+[32m+[m[32m                if (event.target === customModal) {[m
+[32m+[m[32m                    hideCustomModal();[m
+[32m+[m[32m                }[m
+[32m+[m[32m            });[m
+[32m+[m
+[32m+[m[32m            const urlParams = new URLSearchParams(window.location.search);[m
+[32m+[m[32m            if (urlParams.has('logout') && urlParams.get('logout') === 'success') {[m
+[32m+[m[32m                showCustomModal('¡Sesión Cerrada!', 'Has cerrado tu sesión exitosamente.');[m
+[32m+[m[32m                urlParams.delete('logout');[m
+[32m+[m[32m                const newUrl = window.location.pathname + urlParams.toString();[m
+[32m+[m[32m                window.history.replaceState({}, document.title, newUrl);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        });[m
+[32m+[m[32m    </script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+[1mdiff --git a/Menu.php b/Menu.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6d37f74[m
+[1m--- /dev/null[m
+[1m+++ b/Menu.php[m
+[36m@@ -0,0 +1,618 @@[m
+[32m+[m[32m<?php[m
+[32m+[m[32mrequire_once 'sesion.php';[m
+[32m+[m[32m?>[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Menú - Burger Place</title>[m
+[32m+[m[32m    <link rel="stylesheet" href="styles.css">[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body class="menu-page"> <div class="sidebar">[m
+[32m+[m[32m        <img src="img/Logo/HamburguesaLOGO2.png" alt="Logo">[m
+[32m+[m[32m        <nav>[m
+[32m+[m[32m            <ul>[m
+[32m+[m[32m                <li><a href="Home.php">Home</a></li>[m
+[32m+[m[32m                <li><a href="Nosotros.php">Nosotros</a></li>[m
+[32m+[m[32m                <li><a class="active" href="Menu.php">Menú</a></li>[m
+[32m+[m[32m                <li><a href="Contacto.php">Contacto</a></li>[m
+[32m+[m[32m                <?php if (is_logged_in()): ?>[m
+[32m+[m[32m                    <li><a href="perfil.php">Mi Perfil</a></li>[m
+[32m+[m[32m                    <li><a href="logout.php">Cerrar Sesión</a></li>[m
+[32m+[m[32m                <?php else: ?>[m
+[32m+[m[32m                    <li><a href="login.html">Iniciar Sesión</a></li>[m
+[32m+[m[32m                    <li><a href="registro.html">Registrarse</a></li>[m
+[32m+[m[32m                <?php endif; ?>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m        </nav>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <header class="header">[m
+[32m+[m[32m        <h1>Menú</h1>[m
+[32m+[m[32m        <div class="nav-buttons">[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('entrantes')">Entrantes</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('hamburguesas')">Hamburguesas</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('wraps')">Wraps y Sándwiches</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('perritos')">Perritos Calientes</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('ensaladas')">Ensaladas</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('pizzas')">Pizzas</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('alitas')">Alitas y Tiras de Pollo</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('bebidas')">Bebidas</button>[m
+[32m+[m[32m            <button class="nav-button" onclick="scrollToSection('postres')">Postres</button>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <button id="view-cart-button" class="cart-button-image">[m
+[32m+[m[32m            <img src="img/Carrito/Carrito.png" alt="Carrito de Compras"> <span id="cart-count" class="cart-count">0</span>[m
+[32m+[m[32m        </button>[m
+[32m+[m[32m    </header>[m
+[32m+[m
+[32m+[m[32m    <div class="main-content" style="padding-top: 80px;">[m
+[32m+[m[32m        <div class="category" id="entrantes">[m
+[32m+[m[32m            <h2>Entrantes y Acompañamientos</h2>[m
+[32m+[m[32m            <div class="menu-items">[m
+[32m+[m[32m                <div class="menu-item">[m
+[32m+[m[32m                    <img src="img/Menu/Entrantes/PapasFritas.png" alt="Papas Fritas Clásicas">[m
+[32m+[m[32m                    <h3>Papas Fritas Clásicas</h3>[m
+[32m+[m[32m                    <div class="price">€1.99</div>[m
+[32m+[m[32m                    <p>Crujientes papas fritas clásicas.</p>[m
+[32m+[m[32m                    <button class="add-to-cart">Añadir al carrito</button>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="menu-item">[m
+[32m+[m[32m                    <img src="img/Menu/Entrantes/PatatasBaconChedar.png" alt="Papas Gajo con Queso y Bacon">[m
+[32m+[m[32m                    <h3>Papas Gajo con Queso y Bacon</h3>[m
+[32m+[m[32m                    <div class="price">€2.99</div>[m
+[32m+[m[32m                    <p>Papas gajo cubiertas con queso y bacon.</p>[m
+[32m+[m[32m                    <button class="add-to-cart">Añadir al carrito</button>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="menu-item">[m
+[32m+[m[32m                    <img src="img/Menu/Entrantes/ArosCebolla.png" alt="Aros de Cebolla Crujientes">[m
+[32m+[m[32m                    <h3>Aros de Cebolla Crujientes</h3>[m
+[32m+[m[32m                    <div class="price">€2.49</div>[m
+[32m+[m[32m                    <p>Aros de cebolla crujientes y dorados.</p>[m
+[32m+[m[32m                    <button class="add-to-cart">Añadir al carrito</button>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="menu-item">[m
+[32m+[m[32m                    <img src="img/Menu/Entrantes/Niggers_de_polla.png" alt="Nuggets de Pollo">[m
+[32m+[m[32m                    <h3>Nuggets de Pollo (6 o 10 unidades)</h3>[m
+[32m+[m[32m                    <div class="price">€1.99</div>[m
+[32m+[m[32m                    <p>Nuggets de pollo crujientes.</p>[m
+[32m+[m[32m                    <button class="add-to-cart">Añadir al carrito</button>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="menu-item">[m
+[32m+[m[32m                    <img src="img/Menu/Entrantes/Palillos_mozarella.jpg" alt="Palitos de Mozzarella">[m
+[32m+[m[32m                    <h3>Palitos de Mozzarella</h3>[m
+[32m+[m[32m                    <div class="price">€1.49</div>[m
+[32m+[m[32m                    <p>Palitos de mozzarella fritos y crujientes.</p>[m
+[32m+[m[32m                    <button class="add-to-cart">

@@ -55,7 +55,15 @@ require_once 'sesion.php';
         </div>
     </div>
     <footer>
-        <p>© 2023 All rights reserved - PastaBurger House</p>
+        <nav>
+            <ul>
+                <li><a href="Home.php">Home</a></li>
+                <li><a href="Nosotros.php">Nosotros</a></li>
+                <li><a href="Menu.php">Menú</a></li>
+                <li><a href="Contacto.php">Contacto</a></li>
+            </ul>
+        </nav>
+        <p>© 2025 Todos los derechos reservados - Burger Place</p>
     </footer>
 </body>
 </html>
