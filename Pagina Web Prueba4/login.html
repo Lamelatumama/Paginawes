@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Burger Place</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="img/Logo/HamburguesaLOGO2.png" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="Home.php">Home</a></li>
+                <li><a href="Nosotros.php">Nosotros</a></li>
+                <li><a href="Menu.php">Menú</a></li>
+                <li><a class="active" href="login.html">Iniciar Sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header class="header">
+        <h1>Iniciar Sesión</h1>
+    </header>
+
+    <div class="main-content auth-container">
+        <div class="auth-box">
+            <div id="login-form-section">
+                <h2>Iniciar Sesión</h2>
+                <form id="login-form">
+                    <input type="hidden" name="accion" value="login">
+                    <input type="text" name="correo_o_usuario" id="correo_o_usuario" placeholder="Correo electrónico o Usuario">
+                    <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña">
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+                <p class="toggle-form-link">¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-custom-button">&times;</span>
+            <h2 id="custom-modal-title"></h2>
+            <p id="custom-modal-message"></p>
+            <button class="ok-button">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            const correoOUsuarioInput = document.getElementById('correo_o_usuario');
+            const contrasenaInput = document.getElementById('contrasena');
+
+            const customModal = document.getElementById('custom-modal');
+            const customModalTitle = document.getElementById('custom-modal-title');
+            const customModalMessage = document.getElementById('custom-modal-message');
+            const closeCustomButton = document.querySelector('.close-custom-button');
+            const okButton = document.querySelector('.ok-button');
+
+            function showCustomModal(title, message) {
+                customModalTitle.textContent = title;
+                customModalMessage.textContent = message;
+                customModal.style.display = 'flex';
+            }
+
+            function hideCustomModal() {
+                customModal.style.display = 'none';
+            }
+
+            closeCustomButton.addEventListener('click', hideCustomModal);
+            okButton.addEventListener('click', hideCustomModal);
+            customModal.addEventListener('click', function(event) {
+                if (event.target === customModal) {
+                    hideCustomModal();
+                }
+            });
+
+            loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                if (correoOUsuarioInput.value.trim() === '') {
+                    showCustomModal('Error de Inicio de Sesión', 'Por favor, introduce tu correo electrónico o nombre de usuario.');
+                    return;
+                }
+
+                if (contrasenaInput.value.trim() === '') {
+                    showCustomModal('Error de Inicio de Sesión', 'Por favor, introduce tu contraseña.');
+                    return;
+                }
+
+                const formData = new FormData(loginForm);
+                const queryParams = new URLSearchParams(formData).toString();
+
+                try {
+                    const response = await fetch('auth.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: queryParams,
+                        credentials: 'include'
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showCustomModal('Inicio de Sesión Exitoso', result.message);
+                        loginForm.reset();
+                        setTimeout(() => {
+                            window.location.href = 'Home.php';
+                        }, 1500);
+                    } else {
+                        showCustomModal('Error de Inicio de Sesión', result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showCustomModal('Error de Conexión', 'Ocurrió un error de conexión. Inténtalo de nuevo.');
+                }
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('registro') && urlParams.get('registro') === 'success') {
+                showCustomModal('¡Registro exitoso!', 'Por favor, inicia sesión.');
+                urlParams.delete('registro');
+                const newUrl = window.location.pathname + urlParams.toString();
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        });
+    </script>
+</body>
+</html>
